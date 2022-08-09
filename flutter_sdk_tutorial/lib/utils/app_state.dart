@@ -74,6 +74,13 @@ class AppState {
       deviceId = await PlatformDeviceId.getDeviceId;
     } else if (Platform.isLinux) {
       deviceId = await PlatformDeviceId.getDeviceId;
+      //  This external library will generate a '/sys/firmware/dmi/tables/smbios_entry_point: Permission denied' error
+      //  You can get around this by adding your user to the group who owns the file (according to Google)
+      //  but for our purposes, I will just assign a hardcoded ID in this case.
+      if (deviceId == null || deviceId == ""){
+        print("Device ID on Linux was empty, assigning hardcoded ID");
+        deviceId = "Linux Machine ID";
+      }
     }
     //  Make deviceId alphanumeric for PubNub (best practice)
     deviceId = deviceId?.replaceAll(RegExp('[^A-Za-z0-9]'), '');
