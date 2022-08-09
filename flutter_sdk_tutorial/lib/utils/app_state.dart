@@ -37,7 +37,7 @@ class AppState {
 
     //  You need to specify a Publish and Subscribe key when configuring PubNub on the device.
     //  This application will load them from this file (See ReadMe for information on obtaining keys)
-    if (pubnubPublishKey == "REPLACE WITH YOUR PUBNUB PUBLISHKEY" ||
+    if (pubnubPublishKey == "REPLACE WITH YOUR PUBNUB PUBLISH KEY" ||
         pubnubSubscribeKey == "REPLACE WITH YOUR PUBNUB SUBSCRIBE KEY") {
       _appTitle = "MISSING KEYS";
     }
