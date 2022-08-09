@@ -8,9 +8,9 @@ import 'package:flutter_sdk_tutorial/utils/pubnub_instance.dart';
 import 'package:platform_device_id/platform_device_id.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../demo/demo_interface.dart';
-
 class AppState {
+  //  ONLY set to true if running in PubNub's interactive demo framework
+  static const bool demo = false;
   static String? _deviceId;
   static final PubNubInstance _pubnub = PubNubInstance();
   static final FriendlyNamesProvider _friendlyNames =
@@ -56,7 +56,7 @@ class AppState {
       const localStorageKey = "com.pubnub.gettingstarted_deviceId";
       SharedPreferences prefs = await SharedPreferences.getInstance();
       String? storedId = prefs.getString(localStorageKey);
-      if (storedId == null) {
+      if (storedId == null || AppState.demo) {
         //  No local storage found, generate a new random ID for this user
         String newId = generateRandomString(15);
         await prefs.setString(localStorageKey, newId);
@@ -77,7 +77,7 @@ class AppState {
       //  This external library will generate a '/sys/firmware/dmi/tables/smbios_entry_point: Permission denied' error
       //  You can get around this by adding your user to the group who owns the file (according to Google)
       //  but for our purposes, I will just assign a hardcoded ID in this case.
-      if (deviceId == null || deviceId == ""){
+      if (deviceId == null || deviceId == "") {
         print("Device ID on Linux was empty, assigning hardcoded ID");
         deviceId = "Linux Machine ID";
       }

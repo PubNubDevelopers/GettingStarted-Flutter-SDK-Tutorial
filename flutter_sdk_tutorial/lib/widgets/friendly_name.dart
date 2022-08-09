@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:flutter_sdk_tutorial/providers/friendly_names.dart';
 import 'package:pubnub/pubnub.dart';
 
+import '../demo/demo_interface.dart';
 import '../utils/app_state.dart';
 
 class FriendlyNameWidget extends StatefulWidget {
@@ -74,6 +75,9 @@ class _FriendlyNameWidget extends State<FriendlyNameWidget> {
         var uuidMetadataInput = UuidMetadataInput(name: _controller.text);
         var result = await AppState.pubnub.instance.objects
             .setUUIDMetadata(uuidMetadataInput, uuid: AppState.deviceId);
+
+        //  Interactive Demo only
+        DemoInterface.actionCompleted("Change your friendly name");
       }
     }
   }

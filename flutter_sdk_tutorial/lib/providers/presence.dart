@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import '../demo/demo_interface.dart';
 import '../utils/app_state.dart';
 import '../utils/pubnub_instance.dart';
 import 'friendly_names.dart';
@@ -16,12 +17,18 @@ class PresenceProvider with ChangeNotifier {
   }
 
   String membersOnline(FriendlyNamesProvider friendlyNames) {
-    //  todo loop through onlineUsers and and resolve friendly names
+    //  loop through onlineUsers and and resolve friendly names
     String members = "";
     _onlineUsers.forEach((element) {
       if (members != "") members += ", ";
       members += friendlyNames.resolveFriendlyName(element);
     });
+
+    //  Interactive Demo only
+    if (_onlineUsers.length >= 3) {
+      DemoInterface.actionCompleted("Be in a chat with 3 or more people");
+    }
+
     return members;
   }
 

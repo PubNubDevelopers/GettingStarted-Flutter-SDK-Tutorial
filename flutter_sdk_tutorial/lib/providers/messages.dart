@@ -53,6 +53,12 @@ class MessageProvider with ChangeNotifier {
             channel: m.channel,
             uuid: m.uuid.value,
             message: m.content));
+
+        //  Interactive Demo only
+        if (m.uuid.value != AppState.deviceId) {
+          DemoInterface.actionCompleted(
+              "Receive a message (You might need to open a new tab)");
+        }
       } else if (m.messageType == MessageType.objects) {
         //  Whenever Object meta data is changed, an Object event is received.
         //  See: https://www.pubnub.com/docs/chat/sdks/users/setup
@@ -77,8 +83,6 @@ class MessageProvider with ChangeNotifier {
     //await pubnub.publish(channel, {'text': message});
     await pubnub.publish(channel, message);
 
-    //  Interactive Demo only
-    //DemoInterface.actionCompleted("Send a Message");
   }
 
   @override

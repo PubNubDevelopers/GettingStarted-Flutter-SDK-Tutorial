@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
+import '../utils/app_state.dart';
+
 /// IMPORTANT
 /// This class is ONLY used by the PubNub interactive demo framework and can be
 /// safely ignored for the tutorial
@@ -15,24 +17,21 @@ class DemoInterface {
   static String? identifier;
 
   static actionCompleted(String action) async {
-    if (kIsWeb) {
-      //  ${encodeURIComponent(JSON.stringify({ id: identifier, feature: action }
-      //  const url = `https://ps.pndsn.com/publish/${pub}/${sub}/0/demo/myCallback/${encodeURIComponent(JSON.stringify({ id: identifier, feature: action }))}?store=0&uuid=${identifier}`;
+    if (kIsWeb && AppState.demo) {
       if (identifier == null) {
-        print("Identifier is null");
+        //print("Identifier is null");
         return;
       }
 
       var myJson = '{"id": "$identifier", "feature": "$action"}';
-      //var uriJson = Uri.encodeComponent(jsonDecode(myJson));
       var uriJson = Uri.encodeComponent(myJson);
 
       String url =
-          "https://ps.pndsn.com/publish/$pub/$sub/0/demo/myCallback/$uriJson))}?store=0&uuid=$identifier";
+          "https://ps.pndsn.com/publish/$pub/$sub/0/demo/myCallback/$uriJson?store=0&uuid=$identifier";
 
       var response = await http.get(Uri.parse(url));
       if (response.statusCode == 200) {
-        print("Success: ${response.body}");
+        //print("Success: ${response.body}");
       } else {
         print("Fail: ${response.statusCode}");
       }
