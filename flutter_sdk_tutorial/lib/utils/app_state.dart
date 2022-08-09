@@ -16,12 +16,10 @@ class AppState {
   static final FriendlyNamesProvider _friendlyNames =
       FriendlyNamesProvider(_pubnub);
 
-  static const String pubnubPublishKey =
-      "pub-c-39679262-555b-40b3-b2c7-277cb0e5aab5";
-  static const String pubnubSubscribeKey =
-      "sub-c-32ee6a82-b4a9-11ec-96ff-fe86d55faee6";
-  //static const pubnubPublishKey = "REPLACE WITH YOUR PUBNUB PUBLISH KEY";   //    <--  PubNub Keys go here
-  //static const pubnubSubscribeKey = "REPLACE WITH YOUR PUBNUB SUBSCRIBE KEY"; //  <--  PubNub Keys go here
+  static const pubnubPublishKey =
+      "REPLACE WITH YOUR PUBNUB PUBLISH KEY"; //    <--  PubNub Keys go here
+  static const pubnubSubscribeKey =
+      "REPLACE WITH YOUR PUBNUB SUBSCRIBE KEY"; //  <--  PubNub Keys go here
 
   //  This application hardcodes a single channel name for simplicity.  Typically you would use separate channels for each
   //  type of conversation, e.g. each 1:1 chat would have its own channel, named appropriately.
