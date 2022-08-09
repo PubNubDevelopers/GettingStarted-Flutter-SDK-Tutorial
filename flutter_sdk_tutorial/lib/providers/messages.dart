@@ -1,9 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:pubnub/pubnub.dart';
 
-import 'app_state.dart';
+import '../demo/demo_interface.dart';
+import '../utils/app_state.dart';
 import 'models.dart';
-import 'pubnub_instance.dart';
+import '../utils/pubnub_instance.dart';
 
 export 'models.dart';
 
@@ -17,41 +18,45 @@ class MessageProvider with ChangeNotifier {
           .toList();
 
   MessageProvider._(this.pubnub, this.subscription) {
-    print("new message provider");
-
-    //_messages = [...AppData.conversations!];
-    //  todo reuse the above logic to load history on launch (through AppData init())
     _messages = [];
 
-    //  Retrieve messages from history
+    //  When the application is first loaded, it is common to load any recent chat messages so the user
+    //  can get caught up with conversations they missed.  Every application will handle this differently
+    //  but here we just load the 8 most recent messages
     var result = pubnub.batch.fetchMessages({AppState.channelName}, count: 8);
     result.then((batchHistoryResult) {
-      List<BatchHistoryResultEntry> historyResults = batchHistoryResult
-          .channels[AppState.channelName] as List<BatchHistoryResultEntry>;
-      historyResults.forEach((element) async => {
-            _addMessage(ChatMessage(
-                timetoken: '${element.timetoken}',
-                channel: AppState.channelName,
-                uuid: element.uuid.toString(),
-                message: element.message)),
+      if (batchHistoryResult.channels[AppState.channelName] != null) {
+        List<BatchHistoryResultEntry> historyResults = batchHistoryResult
+            .channels[AppState.channelName] as List<BatchHistoryResultEntry>;
+        historyResults.forEach((element) async => {
+              _addMessage(ChatMessage(
+                  timetoken: '${element.timetoken}',
+                  channel: AppState.channelName,
+                  uuid: element.uuid.toString(),
+                  message: element.message)),
 
-            //  Look up the friendly names for any uuids found in the history
-            await AppState.friendlyNames
-                .lookupMemberName(element.uuid.toString())
-          });
+              //  Look up the friendly names for any uuids found in the history
+              await AppState.friendlyNames
+                  .lookupMemberName(element.uuid.toString())
+            });
+      }
     });
 
+    //  Applications receive various types of information from PubNub through a 'listener'
+    //  This application dynamically registers a listener when it comes to the foreground
     subscription.messages.listen((m) {
-//      print("Darryn");
       if (m.messageType == MessageType.normal) {
+        //  A message is received from PubNub.  This is the entry point for all messages on all
+        //  channels or channel groups, though this application only uses a single channel.
         _addMessage(ChatMessage(
             timetoken: '${m.publishedAt}',
             channel: m.channel,
             uuid: m.uuid.value,
             message: m.content));
       } else if (m.messageType == MessageType.objects) {
-        print("Objects message");
-        print(m.payload);
+        //  Whenever Object meta data is changed, an Object event is received.
+        //  See: https://www.pubnub.com/docs/chat/sdks/users/setup
+        //  Use this to be notified when other users change their friendly names
         AppState.friendlyNames.replaceMemberName(
             m.payload['data']['id'].toString(),
             m.payload['data']['name'].toString());
@@ -71,13 +76,14 @@ class MessageProvider with ChangeNotifier {
   sendMessage(String channel, String message) async {
     //await pubnub.publish(channel, {'text': message});
     await pubnub.publish(channel, message);
+
+    //  Interactive Demo only
+    DemoInterface.actionCompleted("Send a Message");
   }
 
   @override
   void dispose() async {
-    print("messges dispose");
-    this.subscription.cancel();
-    //await this.pubnub.announceLeave(channelGroups: {AppData.CHANNELGROUP});
+    subscription.cancel();
     super.dispose();
   }
 }

@@ -7,21 +7,21 @@ class ChatTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Text(
               space,
-              style: TextStyle(color: Colors.black),
+              style: const TextStyle(
+                color: Colors.black,
+                fontSize: 30.0,
+                fontWeight: FontWeight.bold,
+              ),
             ),
-            Text("Description",
-                style: Theme.of(context)
-                    .textTheme
-                    .caption!
-                    .apply(color: Colors.grey))
           ],
         ),
       ],

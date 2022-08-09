@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../providers/models.dart';
 import 'message_list.dart';
 import 'new_message.dart';
 

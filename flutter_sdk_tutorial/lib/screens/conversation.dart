@@ -2,16 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_sdk_tutorial/providers/friendly_names.dart';
 import 'package:provider/provider.dart';
 
-//import '../widgets/endDrawer.dart';
+import '../utils/app_state.dart';
 import '../widgets/chat_body.dart';
 import '../widgets/chat_title.dart';
-//import '../widgets/drawer.dart';
-import '../providers/app_state.dart';
 import '../providers/presence.dart';
 import '../providers/messages.dart';
+import '../widgets/friendly_name.dart';
 
 class Conversation extends StatefulWidget {
-  //static const routeName = '/conversation';
   @override
   _ConversationState createState() => _ConversationState();
 }
@@ -29,52 +27,49 @@ class _ConversationState extends State<Conversation>
     presenceProvider = Provider.of<PresenceProvider>(context, listen: false);
     friendlyNamesProvider =
         Provider.of<FriendlyNamesProvider>(context, listen: false);
-    var spaceId = ModalRoute.of(context)!.settings.arguments != null
-        ? ModalRoute.of(context)!.settings.arguments as String
-        : null;
-    //final space = AppData.getSpaceById(spaceId);
 
+    //  Header to hold the current friendly name of the device along with other devices in the group chat
+    //  The below logic will launch the settings activity when the option is selected
     return Scaffold(
         key: _scaffoldKey,
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          actions: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Consumer2<PresenceProvider, FriendlyNamesProvider>(
-                  builder: (_, presence, friendlyNames, __) => Text(
-                    //'${presence.occupancy}',
-                    //'${presence.onlineUsers}',
-                    //'${friendlyNames.test}',
-                    presence.membersOnline(friendlyNamesProvider),
-                    //friendlyNames.groupMemberDeviceIds[AppState.deviceId],
-                    style: TextStyle(color: Colors.grey),
-                  ),
-                ),
-              ],
-            ),
-            IconButton(
-                icon: Icon(Icons.people_outline),
-                onPressed: () {
-                  _scaffoldKey.currentState!.openEndDrawer();
-                })
-          ],
-          leading: Row(
-            children: [
-              IconButton(
-                  icon: Icon(Icons.arrow_back_ios_rounded),
-                  onPressed: () {
-                    _scaffoldKey.currentState!.openDrawer();
-                  }),
-            ],
-          ),
-          title: ChatTitle(AppState.channelName),
+          title: ChatTitle(AppState.appTitle),
           backgroundColor: Colors.white,
-          iconTheme: IconThemeData(color: Colors.black),
+          bottom: PreferredSize(
+            preferredSize: const Size.fromHeight(80.0),
+            child: Column(children: [
+              Padding(
+                padding: const EdgeInsets.only(
+                    left: 10.0, bottom: 5.0, top: 5.0, right: 10.0),
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const Text(
+                        "Members Online: ",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 14),
+                      ),
+                      Flexible(
+                        child:
+                            Consumer2<PresenceProvider, FriendlyNamesProvider>(
+                          builder: (_, presence, friendlyNames, __) => Text(
+                            presence.membersOnline(friendlyNamesProvider),
+                            style: const TextStyle(
+                                color: Colors.black, fontSize: 14),
+                          ),
+                        ),
+                      ),
+                    ]),
+              ),
+              Padding(
+                  padding: const EdgeInsets.only(left: 10.0, bottom: 10.0),
+                  child: Consumer<FriendlyNamesProvider>(
+                      builder: (_, friendlyNames, __) => FriendlyNameWidget())),
+            ]),
+          ),
         ),
-//        drawer: Drawer(child: AppDrawer()),
-//        endDrawer: Drawer(child: EndDrawer()),
         body: GestureDetector(
             onTap: () {
               FocusScopeNode currentFocus = FocusScope.of(context);
@@ -93,24 +88,24 @@ class _ConversationState extends State<Conversation>
     super.initState();
   }
 
+  //  This application is designed to "unsubscribe" from the channel when it goes to the background and "re-subscribe"
+  //  when it comes to the foreground.  This is a fairly common design pattern.  In production, you would probably
+  //  also use a native push message to alert the user whenever there are missed messages.  For more information
+  //  see https://www.pubnub.com/tutorials/push-notifications/
+  //  Note that the Dart API uses slightly different terminology / behaviour to unsubscribe / re-subscribe.
+  //  Note: This getting started application is set up to unsubscribe from all channels when the app goes into the background.
+  //  This is good to show the principles of presence but you don't need to do this in a production app if it does not fit your use case.
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    //print("State change: " + state.toString());
     if (state == AppLifecycleState.paused) {
       //  Mobile only: App has gone to the background
-      //  Unsubscribing and resubscribing gives faster presence updates compared to pausing and resuming
       messageProvider.pubnub.announceLeave(channels: {AppState.channelName});
       messageProvider.subscription.pause();
-      //messageProvider.pubnub.unsubscribeAll();
     } else if (state == AppLifecycleState.resumed) {
       //  Mobile only: App has returned to the foreground
-      //messageProvider.pubnub
-      //    .subscribe(channels: {AppState.channelName}, withPresence: true);
       messageProvider.subscription.resume();
       messageProvider.pubnub
           .announceHeartbeat(channels: {AppState.channelName});
-      //presenceProvider = Provider.of<PresenceProvider>(context, listen: false);
-      //presenceProvider.updateOnlineUsers();
     }
   }
 
