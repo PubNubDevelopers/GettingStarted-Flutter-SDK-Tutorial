@@ -8,9 +8,7 @@ Create 1:1 private chat rooms, group chats, or mega chats for large scale events
 
 > For the sake of simplicity, this application will only focus on a single 'group chat' room
 
-<!---
-![Screenshot](https://raw.githubusercontent.com/PubNubDevelopers/GettingStarted-Swift-SDK-Tutorial/main/media/screenshot01_small.png)
--->
+![Screenshot](https://raw.githubusercontent.com/PubNubDevelopers/GettingStarted-Flutter-SDK-Tutorial/main/media/ios.png)
 
 ## Demo
 
@@ -97,4 +95,28 @@ Checkout the following links for more information on developing chat solutions w
 
 ## Additional Samples
 
-Please also see https://github.com/pubnub/flutter-ref-app-simple-chat which was developed by one of our PubNub engineers.  This app also demonstrates how to implement a typing indicator using PubNub [Signals](https://www.pubnub.com/docs/sdks/dart/api-reference/publish-and-subscribe#signal) and exchange [files](https://www.pubnub.com/docs/sdks/dart/api-reference/files) as part of the conversation.
+Please also see https://github.com/pubnub/flutter-ref-app-simple-chat which was developed by one of our PubNub engineers.  This app also demonstrates how to implement a typing indicator using PubNub [Signals](https://www.pubnub.com/docs/sdks/dart/api-reference/publish-and-subscribe#signal) and view [files](https://www.pubnub.com/docs/sdks/dart/api-reference/files) as part of the conversation.
+
+## App running on other platforms
+
+Flutter is a cross-platform framework so your app should run without changes on other platforms.  The only platform-specific consideration you might  need to make is obtaining a device id. 
+
+### Android:
+
+![Screenshot](https://raw.githubusercontent.com/PubNubDevelopers/GettingStarted-Flutter-SDK-Tutorial/main/media/android.png)
+
+### Browser (Chrome):
+
+![Screenshot](https://raw.githubusercontent.com/PubNubDevelopers/GettingStarted-Flutter-SDK-Tutorial/main/media/browser.png)
+
+### iOS:
+
+![Screenshot](https://raw.githubusercontent.com/PubNubDevelopers/GettingStarted-Flutter-SDK-Tutorial/main/media/ios.png)
+
+### Windows desktop: 
+
+![Screenshot](https://raw.githubusercontent.com/PubNubDevelopers/GettingStarted-Flutter-SDK-Tutorial/main/media/windows2.png)
+
+### Linux (Ubuntu): 
+
+![Screenshot](https://raw.githubusercontent.com/PubNubDevelopers/GettingStarted-Flutter-SDK-Tutorial/main/media/linux.png)
