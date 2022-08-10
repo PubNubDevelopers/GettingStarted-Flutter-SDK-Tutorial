@@ -12,9 +12,7 @@ Create 1:1 private chat rooms, group chats, or mega chats for large scale events
 
 ## Demo
 
-<!---
-A hosted demo version of this application can be seen at http://pubnub.com/demos/blah
--->
+A hosted demo version of this application can be seen at https://pubnub.com/demo/flutter-chat/
 
 ## Features
 
