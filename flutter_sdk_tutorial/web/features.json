@@ -1,5 +1,8 @@
 {
     "features": [
-      "Send a Message"
+      "Send a message",
+      "Receive a message (You might need to open a new tab)",
+      "Change your friendly name",
+      "Be in a chat with 3 or more people"
     ]
 }
