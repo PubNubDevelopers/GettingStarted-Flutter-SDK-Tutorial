@@ -80,7 +80,6 @@ class MessageProvider with ChangeNotifier {
   }
 
   sendMessage(String channel, String message) async {
-    //await pubnub.publish(channel, {'text': message});
     await pubnub.publish(channel, message);
 
     //  Interactive Demo only
