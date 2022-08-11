@@ -33,15 +33,9 @@ class FriendlyNamesProvider with ChangeNotifier {
       //  We already have a name for this uuid
       return;
     }
-    GetUuidMetadataResult lookupResult;
-    try {
-      lookupResult = await pubnub.objects.getUUIDMetadata(uuid: deviceId);
-    } catch (e) {
-      //  Caught exception when looking up name
-      return;
-    }
-    GetUuidMetadataResult result = lookupResult;
-    groupMemberDeviceIds[deviceId] = result.metadata?.name;
+
+    //  TUTORIAL: STEP 2I CODE GOES HERE (1/2)
+
     notifyListeners();
   }
 

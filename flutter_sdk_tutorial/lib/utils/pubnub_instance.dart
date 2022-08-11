@@ -11,16 +11,13 @@ class PubNubInstance {
 
   PubNubInstance() {
     //  Create PubNub configuration and instantiate the PubNub object, used to communicate with PubNub
-    _pubnub = PubNub(
-        defaultKeyset: Keyset(
-            subscribeKey: AppState.pubnubSubscribeKey,
-            publishKey: AppState.pubnubPublishKey,
-            userId: UserId(AppState.deviceId!)));
+
+    //  TUTORIAL: STEP 2A CODE GOES HERE
 
     //  Subscribe to the pre-defined channel representing this chat group.  This will allow us to receive messages
     //  and presence events for the channel (what other users are in the room)
-    _subscription =
-        _pubnub.subscribe(channels: {AppState.channelName}, withPresence: true);
+
+    //  TUTORIAL: STEP 2B CODE GOES HERE (1/2)
 
     //  In order to receive object UUID events (in the addListener) it is required to set our
     //  membership using the Object API.

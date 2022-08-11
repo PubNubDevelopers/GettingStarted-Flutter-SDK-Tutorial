@@ -72,9 +72,8 @@ class _FriendlyNameWidget extends State<FriendlyNameWidget> {
       //  Save the contents to PubNub object storage
       if (_controller.text.isNotEmpty) {
         setState(() => {_saveButtonText = "Edit", _enabled = false});
-        var uuidMetadataInput = UuidMetadataInput(name: _controller.text);
-        var result = await AppState.pubnub.instance.objects
-            .setUUIDMetadata(uuidMetadataInput, uuid: AppState.deviceId);
+
+        //  TUTORIAL: STEP 2H CODE GOES HERE
 
         //  Interactive Demo only
         DemoInterface.actionCompleted("Change your friendly name");

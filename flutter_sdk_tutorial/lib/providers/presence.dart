@@ -42,35 +42,10 @@ class PresenceProvider with ChangeNotifier {
     //  the channel.  This is similar to the earlier hereNow call but this API will only be
     //  invoked when presence information changes, meaning you do NOT have to call hereNow
     //  periodically.  More info: https://www.pubnub.com/docs/sdks/kotlin/api-reference/presence
-    chatSubscription.presence.listen((presenceEvent) {
-      switch (presenceEvent.action) {
-        case PresenceAction.join:
-          _addOnlineUser(presenceEvent.uuid!.value);
-          break;
-        case PresenceAction.leave:
-        case PresenceAction.timeout:
-          _removeOnlineUser(presenceEvent.uuid!.value);
-          break;
-        case PresenceAction.stateChange:
-          break;
-        case PresenceAction.interval:
-          //  'join' and 'leave' will work up to the ANNOUNCE_MAX setting (defaults to 20 users)
-          //  Over ANNOUNCE_MAX, an 'interval' message is sent.  More info: https://www.pubnub.com/docs/presence/presence-events#interval-mode
-          //  The below logic requires that 'Presence Deltas' be defined for the keyset, you can do this from the admin dashboard
-          if (presenceEvent.join.length > 0) {
-            _onlineUsers.addAll(presenceEvent.join.map((uuid) => uuid.value));
-          }
-          if (presenceEvent.join.length > 0) {
-            _onlineUsers.removeAll(presenceEvent.leave
-                .where((id) => id.value != AppState.deviceId)
-                .map((uuid) => uuid.value));
-          }
-          notifyListeners();
-          break;
-        default:
-          break;
-      }
-    });
+
+    //  TUTORIAL: STEP 2D CODE GOES HERE (1/2)
+
+    //  TUTORIAL: STEP 2F CODE GOES WITHIN THE CODE COPIED ABOVE (1/2)
   }
   PresenceProvider(PubNubInstance pn) : this._(pn.instance, pn.subscription);
 
@@ -84,10 +59,8 @@ class PresenceProvider with ChangeNotifier {
     //  The API will return an array of occupants in the channel, defined by their
     //  ID.  This application will need to look up the friendly name defined for
     //  each of these IDs (later)
-    var result = await pubnub.hereNow(channels: {AppState.channelName});
-    _onlineUsers.addAll(result.channels.values
-        .expand((c) => c.uuids.values)
-        .map((occupantInfo) => occupantInfo.uuid));
+
+    //  TUTORIAL: STEP 2F CODE GOES HERE (2/2)
 
     //  Resolve the friendly names of everyone found in the chat
     for (var element in _onlineUsers) {

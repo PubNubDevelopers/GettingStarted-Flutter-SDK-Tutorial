@@ -95,19 +95,8 @@ class _ConversationState extends State<Conversation>
   //  Note that the Dart API uses slightly different terminology / behaviour to unsubscribe / re-subscribe.
   //  Note: This getting started application is set up to unsubscribe from all channels when the app goes into the background.
   //  This is good to show the principles of presence but you don't need to do this in a production app if it does not fit your use case.
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.paused) {
-      //  Mobile only: App has gone to the background
-      messageProvider.pubnub.announceLeave(channels: {AppState.channelName});
-      messageProvider.subscription.pause();
-    } else if (state == AppLifecycleState.resumed) {
-      //  Mobile only: App has returned to the foreground
-      messageProvider.subscription.resume();
-      messageProvider.pubnub
-          .announceHeartbeat(channels: {AppState.channelName});
-    }
-  }
+
+  //  TUTORIAL: STEP 2B CODE GOES HERE (2/2)
 
   @override
   void dispose() {
