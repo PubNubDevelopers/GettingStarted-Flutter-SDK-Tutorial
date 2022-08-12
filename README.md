@@ -8,7 +8,7 @@ Create 1:1 private chat rooms, group chats, or mega chats for large scale events
 
 > For the sake of simplicity, this application will only focus on a single 'group chat' room
 
-![Screenshot](https://raw.githubusercontent.com/PubNubDevelopers/GettingStarted-Flutter-SDK-Tutorial/main/media/ios.png)
+![Screenshot](https://raw.githubusercontent.com/PubNubDevelopers/GettingStarted-Flutter-SDK-Tutorial/main/media/browser_white.png)
 
 ## Demo
 
@@ -103,10 +103,6 @@ Flutter is a cross-platform framework so your app should run without changes on 
 
 ![Screenshot](https://raw.githubusercontent.com/PubNubDevelopers/GettingStarted-Flutter-SDK-Tutorial/main/media/android.png)
 
-### Browser (Chrome):
-
-![Screenshot](https://raw.githubusercontent.com/PubNubDevelopers/GettingStarted-Flutter-SDK-Tutorial/main/media/browser.png)
-
 ### iOS:
 
 ![Screenshot](https://raw.githubusercontent.com/PubNubDevelopers/GettingStarted-Flutter-SDK-Tutorial/main/media/ios.png)
@@ -118,3 +114,8 @@ Flutter is a cross-platform framework so your app should run without changes on 
 ### Linux (Ubuntu): 
 
 ![Screenshot](https://raw.githubusercontent.com/PubNubDevelopers/GettingStarted-Flutter-SDK-Tutorial/main/media/linux.png)
+
+### Browser (Chrome):
+
+![Screenshot](https://raw.githubusercontent.com/PubNubDevelopers/GettingStarted-Flutter-SDK-Tutorial/main/media/browser.png)
+
