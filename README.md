@@ -16,7 +16,7 @@ A hosted demo version of this application can be seen at https://pubnub.com/demo
 
 ## Features
 
-- [Publish and Subscibe](https://www.pubnub.com/docs/sdks/dart/api-reference/publish-and-subscribe) for messages with the PubNub Swift SDK
+- [Publish and Subscribe](https://www.pubnub.com/docs/sdks/dart/api-reference/publish-and-subscribe) for messages with the PubNub Swift SDK
 - Use [Presence](https://www.pubnub.com/docs/sdks/dart/api-reference/presence) APIs to determine who is currently chatting
 - The [History](https://www.pubnub.com/docs/sdks/dart/api-reference/storage-and-playback) API will retrieve past messages for users newly joining the chat
 - Assign a 'friendly name' to yourself which will be available to others via the PubNub [Object](https://www.pubnub.com/docs/sdks/swift/api-reference/objects) storage APIs
