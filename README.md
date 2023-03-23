@@ -66,7 +66,7 @@ git clone https://github.com/PubNubDevelopers/GettingStarted-Flutter-SDK-Tutoria
 - Navigate to the application directory
 
 ```
-cd GettingStarted-Swift-SDK-Tutorial
+cd GettingStarted-Flutter-SDK-Tutorial
 cd flutter_sdk_tutorial
 ```
 
