@@ -35,7 +35,7 @@ class MessageProvider with ChangeNotifier {
                   uuid: element.uuid.toString(),
                   message: element.message)),
 
-              //  Look up the friendly names for any uuids found in the history
+              //  Look up the friendly names for any uuids found in the message persistence
               await AppState.friendlyNames
                   .lookupMemberName(element.uuid.toString())
             });
@@ -60,7 +60,7 @@ class MessageProvider with ChangeNotifier {
               "Receive a message (You might need to open a new tab)");
         }
       } else if (m.messageType == MessageType.objects) {
-        //  Whenever Object meta data is changed, an Object event is received.
+        //  Whenever App Context meta data is changed, an App Context event is received.
         //  See: https://www.pubnub.com/docs/chat/sdks/users/setup
         //  Use this to be notified when other users change their friendly names
         AppState.friendlyNames.replaceMemberName(

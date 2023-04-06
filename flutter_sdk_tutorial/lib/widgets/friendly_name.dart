@@ -62,14 +62,14 @@ class _FriendlyNameWidget extends State<FriendlyNameWidget> {
   }
 
   //  User has pressed the 'Save' button.
-  //  Persist the friendly name in PubNub object storage (this is the master record)
-  //  Object event will result in this app's UI being updated
+  //  Persist the friendly name in PubNub App Context storage (this is the master record)
+  //  App Context event will result in this app's UI being updated
   void _saveFriendlyName() async {
     if (_saveButtonText == "Edit") {
       //  Make the field editable
       setState(() => {_saveButtonText = "Save", _enabled = true});
     } else {
-      //  Save the contents to PubNub object storage
+      //  Save the contents to PubNub App Context storage
       if (_controller.text.isNotEmpty) {
         setState(() => {_saveButtonText = "Edit", _enabled = false});
         var uuidMetadataInput = UuidMetadataInput(name: _controller.text);

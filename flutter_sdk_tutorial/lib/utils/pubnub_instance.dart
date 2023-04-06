@@ -22,8 +22,8 @@ class PubNubInstance {
     _subscription =
         _pubnub.subscribe(channels: {AppState.channelName}, withPresence: true);
 
-    //  In order to receive object UUID events (in the addListener) it is required to set our
-    //  membership using the Object API.
+    //  In order to receive App Context UUID events (in the addListener) it is required to set our
+    //  membership using the App Context API.
     var setMetadata = [
       MembershipMetadataInput(AppState.channelName, custom: {})
     ];

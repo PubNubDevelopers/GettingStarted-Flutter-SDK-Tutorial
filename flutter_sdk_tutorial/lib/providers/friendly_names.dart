@@ -24,9 +24,9 @@ class FriendlyNamesProvider with ChangeNotifier {
     }
   }
 
-  //  The 'master record' for each device's friendly name is stored in PubNub Object storage.
+  //  The 'master record' for each device's friendly name is stored in PubNub App Context storage.
   //  This avoids the application defining its own server storage or trying to keep track of all
-  //  friendly names on every device.  Since PubNub Objects understand the concept of a user name
+  //  friendly names on every device.  Since PubNub App Context understands the concept of a user name
   //  (along with other common fields like email and profileUrl), it makes the process straight forward
   lookupMemberName(String deviceId) async {
     if (groupMemberDeviceIds.containsKey(deviceId)) {

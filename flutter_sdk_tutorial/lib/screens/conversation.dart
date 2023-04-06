@@ -90,7 +90,7 @@ class _ConversationState extends State<Conversation>
 
   //  This application is designed to "unsubscribe" from the channel when it goes to the background and "re-subscribe"
   //  when it comes to the foreground.  This is a fairly common design pattern.  In production, you would probably
-  //  also use a native push message to alert the user whenever there are missed messages.  For more information
+  //  also use a native mobile push message to alert the user whenever there are missed messages.  For more information
   //  see https://www.pubnub.com/tutorials/push-notifications/
   //  Note that the Dart API uses slightly different terminology / behaviour to unsubscribe / re-subscribe.
   //  Note: This getting started application is set up to unsubscribe from all channels when the app goes into the background.

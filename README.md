@@ -18,8 +18,8 @@ A hosted demo version of this application can be seen at https://pubnub.com/demo
 
 - [Publish and Subscribe](https://www.pubnub.com/docs/sdks/dart/api-reference/publish-and-subscribe) for messages with the PubNub Dart SDK
 - Use [Presence](https://www.pubnub.com/docs/sdks/dart/api-reference/presence) APIs to determine who is currently chatting
-- The [History](https://www.pubnub.com/docs/sdks/dart/api-reference/storage-and-playback) API will retrieve past messages for users newly joining the chat
-- Assign a 'friendly name' to yourself which will be available to others via the PubNub [Object](https://www.pubnub.com/docs/sdks/dart/api-reference/objects) storage APIs
+- The [Message Persistence](https://www.pubnub.com/docs/sdks/dart/api-reference/storage-and-playback) API will retrieve past messages for users newly joining the chat
+- Assign a 'friendly name' to yourself which will be available to others via the PubNub [App Context](https://www.pubnub.com/docs/sdks/dart/api-reference/objects) storage APIs
 
 ## Installing / Getting Started
 
@@ -49,9 +49,9 @@ To run this project yourself you will need a PubNub account
 
 1. Enable the Stream Controller feature for your keyset.
 
-1. Enable the Persistence feature for your keyset
+1. Enable the Message Persistence feature for your keyset
 
-1. Enable the Objects feature for your keyset.  **Also enable 'user metadata events'**, which will allow the app to know when users change their 'friendly name'.
+1. Enable the App Context feature for your keyset.  **Also enable 'user metadata events'**, which will allow the app to know when users change their 'friendly name'.
 
 1. Copy the Publish and Subscribe keys and paste them into your app as specified in the next step.
 
