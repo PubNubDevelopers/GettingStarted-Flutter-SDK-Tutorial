@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'dart:async';
 import 'dart:math';
+import 'keys.dart';
+import '../demo/demo_interface.dart';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter_sdk_tutorial/providers/friendly_names.dart';
@@ -9,17 +11,10 @@ import 'package:platform_device_id/platform_device_id.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AppState {
-  //  ONLY set to true if running in PubNub's interactive demo framework
-  static const bool demo = false;
   static String? _deviceId;
   static final PubNubInstance _pubnub = PubNubInstance();
   static final FriendlyNamesProvider _friendlyNames =
       FriendlyNamesProvider(_pubnub);
-
-  static const pubnubPublishKey =
-      "REPLACE WITH YOUR PUBNUB PUBLISH KEY"; //    <--  PubNub Keys go here
-  static const pubnubSubscribeKey =
-      "REPLACE WITH YOUR PUBNUB SUBSCRIBE KEY"; //  <--  PubNub Keys go here
 
   //  This application hardcodes a single channel name for simplicity.  Typically you would use separate channels for each
   //  type of conversation, e.g. each 1:1 chat would have its own channel, named appropriately.
@@ -34,11 +29,14 @@ class AppState {
 
   static init() async {
     _deviceId = await initPlatformState();
+    if (Keys.demo) {
+      await DemoInterface.requestAccessManagerToken(_deviceId!);
+    }
 
     //  You need to specify a Publish and Subscribe key when configuring PubNub on the device.
     //  This application will load them from this file (See ReadMe for information on obtaining keys)
-    if (pubnubPublishKey == "REPLACE WITH YOUR PUBNUB PUBLISH KEY" ||
-        pubnubSubscribeKey == "REPLACE WITH YOUR PUBNUB SUBSCRIBE KEY") {
+    if (Keys.pubnubPublishKey == "REPLACE WITH YOUR PUBNUB PUBLISH KEY" ||
+        Keys.pubnubSubscribeKey == "REPLACE WITH YOUR PUBNUB SUBSCRIBE KEY") {
       _appTitle = "MISSING KEYS";
     }
   }
@@ -56,7 +54,7 @@ class AppState {
       const localStorageKey = "com.pubnub.gettingstarted_deviceId";
       SharedPreferences prefs = await SharedPreferences.getInstance();
       String? storedId = prefs.getString(localStorageKey);
-      if (storedId == null || AppState.demo) {
+      if (storedId == null || Keys.demo) {
         //  No local storage found, generate a new random ID for this user
         String newId = generateRandomString(15);
         await prefs.setString(localStorageKey, newId);
