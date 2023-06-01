@@ -76,7 +76,7 @@ cd flutter_sdk_tutorial
 flutter packages get
 ```
 
-- Add your pub/sub keys to `app_state.dart` which can be found in the `\lib\utils` directory.
+- Add your pub/sub keys to `keys.dart` which can be found in the `\lib\utils` directory.
 
 -  Run the application in Chrome: `flutter run -d chrome`.  You can also run the app with any target device you have configured Flutter for, for example an Android emulator or iPhone simulator.
 
