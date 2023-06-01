@@ -16,10 +16,12 @@ class _NewMessageWidgetState extends State<NewMessageWidget> {
   final _controller = TextEditingController();
   MessageProvider? messageProvider;
   DateTime? typingTimestamp;
+  late FocusNode myFocusNode;
 
   @override
   void initState() {
     super.initState();
+    myFocusNode = FocusNode();
   }
 
   @override
@@ -54,17 +56,20 @@ class _NewMessageWidgetState extends State<NewMessageWidget> {
                             autocorrect: false,
                             enableInteractiveSelection: false,
                             controller: _controller,
+                            autofocus: true,
+                            focusNode: myFocusNode,
                             decoration: const InputDecoration(
                                 hintText: 'Type a message...',
                                 border: InputBorder.none),
                             onSubmitted: (value) {
-                              _sendMessage();
+                              _sendMessage(myFocusNode);
                             },
                           ),
                         ),
                       ),
                       IconButton(
-                          icon: const Icon(Icons.send), onPressed: _sendMessage)
+                          icon: const Icon(Icons.send),
+                          onPressed: _sendMessage1)
                     ],
                   ),
                 ),
@@ -77,13 +82,18 @@ class _NewMessageWidgetState extends State<NewMessageWidget> {
     );
   }
 
-  void _sendMessage() async {
+  void _sendMessage1() async {
+    _sendMessage(myFocusNode);
+  }
+
+  void _sendMessage(FocusNode? myFocusNode) async {
     if (_controller.text.isNotEmpty) {
       await messageProvider!.sendMessage(widget.spaceId, _controller.text);
       setState(() {
         FocusScope.of(context).unfocus();
         _controller.clear();
       });
+      myFocusNode?.requestFocus();
     }
   }
 }

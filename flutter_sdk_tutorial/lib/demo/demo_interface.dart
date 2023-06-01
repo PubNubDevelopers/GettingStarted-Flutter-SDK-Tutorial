@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
-import '../utils/app_state.dart';
+import '../utils/keys.dart';
 
 /// IMPORTANT
 /// This class is ONLY used by the PubNub interactive demo framework and can be
@@ -13,11 +13,12 @@ import '../utils/app_state.dart';
 class DemoInterface {
   static const pub = 'pub-c-c8d024f7-d239-47c3-9a7b-002f346c1849';
   static const sub = 'sub-c-95fe09e0-64bb-4087-ab39-7b14659aab47';
+  static String accessManagerToken = "";
 
   static String? identifier;
 
   static actionCompleted(String action) async {
-    if (kIsWeb && AppState.demo) {
+    if (kIsWeb && Keys.demo) {
       if (identifier == null) {
         //print("Identifier is null");
         return;
@@ -35,6 +36,26 @@ class DemoInterface {
       } else {
         print("Fail: ${response.statusCode}");
       }
+    }
+  }
+
+  static requestAccessManagerToken(String userId) async {
+    try {
+      const String tokenServer =
+          "https://devrel-demos-access-manager.netlify.app/.netlify/functions/api/flutterchat/grant";
+      http.Response response = await http.post(Uri.parse(tokenServer),
+          body: jsonEncode(<String, String>{"UUID": userId}),
+          headers: <String, String>{
+            "Content-Type": "application/json",
+          });
+      if (response.statusCode == 200) {
+        final Map responseData = jsonDecode(response.body);
+        accessManagerToken = responseData['body']['token'];
+      } else {
+        print("Failed to retrieve Access Manager token: $response.statusCode");
+      }
+    } on Exception catch (_) {
+      print('Exception requesting Access Manager Token');
     }
   }
 }
